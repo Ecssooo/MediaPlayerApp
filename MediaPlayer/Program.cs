@@ -11,8 +11,9 @@ namespace MediaPlayer
         
         static async Task Main()
         {
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+            
             sessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
-
             _ = Task.Run(async () =>
             {
                 while (true)
@@ -35,7 +36,7 @@ namespace MediaPlayer
                         {
                             File.WriteAllBytes("cover.png", imageBytes);
                             Console.WriteLine("COVER_READY");
-                            Console.WriteLine("COVER_PATH|"+ title + "|" +Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)+"\\cover.png");
+                            Console.WriteLine("COVER_PATH|"+ title + "|" + Path.Combine(AppContext.BaseDirectory, "cover.png"));
                         }
                         else
                         {
